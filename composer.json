@@ -8,8 +8,6 @@
             "email": "daijie@php.net"
         }
     ],
-    "require": {},
-    {
     "autoload": {
         "psr-4": {
             "Nature\\": ""
