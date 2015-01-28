@@ -2,7 +2,7 @@
     namespace Nature;
     class Template {
         private $root;
-        private $values=[];
+        private $values=array();
         function __setup($configure){
             $this->root = $configure['root'];
             set_include_path(get_include_path().PATH_SEPARATOR.$this->root.PATH_SEPARATOR.ROOT.'/template');

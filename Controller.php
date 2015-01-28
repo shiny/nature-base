@@ -3,7 +3,7 @@
     abstract class Controller {
         protected $tpl;
         function __construct() {
-            $properties = ['db', 'tpl'];
+            $properties = array('db', 'tpl');
             foreach($properties as $property){
                 if(property_exists($this, $property)) {
                     $this->$property = singleton($property);
@@ -18,7 +18,7 @@
             }
         }
         function assign() {
-            call_user_func_array([$this->tpl, 'assign'], func_get_args());
+            call_user_func_array(array($this->tpl, 'assign'), func_get_args());
         }
         function display($var=null){
             $this->tpl->display($var);

@@ -17,7 +17,7 @@
             define('APP_DIR', $app_dir);
             set_include_path(get_include_path().':'.ROOT);
             $this->load_config();
-            set_exception_handler([$this, 'exception_handler']);
+            set_exception_handler(array($this, 'exception_handler'));
             //set_error_handler([$this, 'error_handler']);
             define('DEBUG', configure('debug'));
             $this->power();
