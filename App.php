@@ -1,6 +1,6 @@
 <?php
     namespace Nature;
-    define('VERSION', '0.1.1');
+    define('VERSION', '0.0.2');
     define('VERSION_NAME', 'WestLake');
     define('ROOT', __DIR__);
     /**
