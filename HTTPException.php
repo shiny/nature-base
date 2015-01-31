@@ -1,7 +1,9 @@
 <?php
     namespace Nature;
-    class HTTPException extends \Exception { 
-        function __construct($message="", $code=0, $previous=null){
+    class HTTPException extends \Exception 
+    { 
+        function __construct($message="", $code=0, $previous=null)
+        {
             if($code!==0) {
                 http_response_code($code);
             }

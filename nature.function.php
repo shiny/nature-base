@@ -1,6 +1,7 @@
 <?php
     
-    namespace Nature{
+    namespace Nature
+    {
         //nature 工具函数
         
         /**
@@ -10,7 +11,8 @@
          * @param string $url 要跳转的网址
          * @param int $status http 状态码
          */
-        function redirect($url, $status=302){
+        function redirect($url, $status=302)
+        {
             http_response_code($status);
             header('Location: '.$url);
             exit;
@@ -22,7 +24,8 @@
          * @param null $value
          * @return array|null
          */
-        function configure($key,  $value=null){
+        function configure($key,  $value=null)
+        {
             $key = trim($key, "\\");
             $key = str_replace("\\", ".", $key);
 
@@ -54,7 +57,8 @@
             }
         }
         
-        function singleton($className, $renewal=false){
+        function singleton($className, $renewal=false)
+        {
             if(is_array($className)) {
                 $objects = array();
                 foreach($className as $class){
@@ -110,18 +114,27 @@
         }
     }
     //register shortcut
-    namespace {
-        function redirect($url, $status=302){
+    namespace 
+    {
+        function redirect($url, $status=302)
+        {
             return Nature\redirect($url, $status);
         }
-        function configure($name, $value=null){
+        
+        function configure($name, $value=null)
+        {
             return Nature\configure($name, $value);
         }
-        function singleton($className, $renewal=false){
+        
+        function singleton($className, $renewal=false)
+        {
             return Nature\singleton($className, $renewal);
         }
+        
         if (!function_exists('http_response_code')) {
-            function http_response_code($code = NULL) {
+            function http_response_code($code = NULL) 
+            {
+                static $http_response_code = 200;
                 if ($code !== NULL) {
                     switch ($code) {
                         case 100: $text = 'Continue'; break;
@@ -167,11 +180,9 @@
                     }
                     $protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
                     header($protocol . ' ' . $code . ' ' . $text);
-                    $GLOBALS['http_response_code'] = $code;
-                } else {
-                    $code = (isset($GLOBALS['http_response_code']) ? $GLOBALS['http_response_code'] : 200);
+                    $http_response_code = $code;
                 }
-                return $code;
+                return $http_response_code;
             }
         }
     }

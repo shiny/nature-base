@@ -7,9 +7,11 @@
      * nature library 核心类
      */
     require_once __DIR__.'/nature.function.php';
-    class App {
+    class App 
+    {
         static $configure=array();
-        function __construct($app_dir=null) {
+        function __construct($app_dir=null) 
+        {
             if (is_null($app_dir)) {
                 //decide by comporser's structure
                 $app_dir = realpath(ROOT.'/../../../');
@@ -22,14 +24,16 @@
             define('DEBUG', configure('debug'));
             $this->power();
         }
-        function run() {
+        function run() 
+        {
             $this->call_controller();
             $this->call_function();
         }
         /**
          * 异常处理程序
          */
-        function exception_handler($exception){
+        function exception_handler($exception)
+        {
             if(!is_a($exception, 'Nature\HTTPException')) {
                 http_response_code(500);
                 $tpl = singleton('tpl');
@@ -46,7 +50,8 @@
         /**
          * 解析配置程序
          */
-        function parse_config($configure, &$position){
+        function parse_config($configure, &$position)
+        {
             if(!is_array($configure)) {
                 return null;
             }
@@ -67,14 +72,16 @@
         /**
          * 加载配置文件
          */
-        function load_config(){
+        function load_config()
+        {
             self::parse_config(require(__DIR__.'/configure.php'), self::$configure);
             if(file_exists(APP_DIR.'/configure.php')) {
                 self::parse_config(include(APP_DIR.'/configure.php'), self::$configure);
             }
             return self::$configure;
         }
-        function rest($object=null){
+        function rest($object=null)
+        {
             $method = strtolower($_SERVER['REQUEST_METHOD']);
             $types = array(
                 'post'=>$_POST,
@@ -106,10 +113,12 @@
         /**
          * alias of rest
          */
-        function call_function(){
+        function call_function()
+        {
             $this->rest();
         }
-        function call_controller() {
+        function call_controller() 
+        {
             foreach (get_declared_classes() as $class) {
                 $reflection = new \ReflectionClass($class);
                 if($reflection->isSubclassOf('Nature\\Controller') && !$reflection->isAbstract()) {
@@ -121,7 +130,8 @@
         /**
          * power by information
          */
-        function power(){
+        function power()
+        {
 	        if (configure('x-powered-by')) {
 		       header('X-Powered-By: Nature/'.VERSION.' ('.VERSION_NAME.')'); 
 	        }
