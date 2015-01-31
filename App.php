@@ -1,15 +1,19 @@
 <?php
     namespace Nature;
+    
     define('VERSION', '0.0.2');
     define('VERSION_NAME', 'WestLake');
     define('ROOT', __DIR__);
+    
     /**
      * nature library 核心类
      */
     require_once __DIR__.'/nature.function.php';
+    
     class App 
     {
-        static $configure=array();
+        static $configure = array();
+        
         function __construct($app_dir=null) 
         {
             if (is_null($app_dir)) {
@@ -24,11 +28,13 @@
             define('DEBUG', configure('debug'));
             $this->power();
         }
+        
         function run() 
         {
             $this->call_controller();
             $this->call_function();
         }
+        
         /**
          * 异常处理程序
          */
@@ -47,6 +53,7 @@
                 $tpl->display('500.html');
             }
         }
+        
         /**
          * 解析配置程序
          */
@@ -69,6 +76,7 @@
                 }
             }
         }
+        
         /**
          * 加载配置文件
          */
@@ -80,6 +88,7 @@
             }
             return self::$configure;
         }
+        
         function rest($object=null)
         {
             $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -110,6 +119,7 @@
                 
             }
         }
+        
         /**
          * alias of rest
          */
@@ -117,6 +127,7 @@
         {
             $this->rest();
         }
+        
         function call_controller() 
         {
             foreach (get_declared_classes() as $class) {
@@ -127,6 +138,7 @@
                 }
             }
         }
+        
         /**
          * power by information
          */

@@ -17,6 +17,7 @@
             $this->charset = $configure['charset'];
             $this->connect();
         }
+        
         function connect()
         {
             if(!$this->dbh){
@@ -24,12 +25,14 @@
                 $this->dbh->query('SET NAMES '.$this->charset);
             }
         }
+        
         function watchException($execute_state)
         {
             if(!$execute_state){
                 throw new MySQLException($this->sth->errorInfo()[2], $this->sth->errorCode());
             }
         }
+        
         function fetchAll($sql, $parameters=[])
         {
             $result = [];
@@ -39,6 +42,7 @@
             array_pop($result);
             return $result;
         }
+        
         function fetchColumnAll($sql, $parameters=[], $position=0)
         {
             $result = [];
@@ -48,29 +52,34 @@
             array_pop($result);
             return $result;
         }
+        
         function exists($sql, $parameters=[])
         {
             $data = $this->fetch($sql, $parameters);
             return !empty($data);
         }
+        
         function query($sql, $parameters=[])
         {
             $this->sth = $this->dbh->prepare($sql);
             $this->watchException($this->sth->execute($parameters));
             return $this->sth->rowCount();
         }
+        
         function fetch($sql, $parameters=[], $type=\PDO::FETCH_ASSOC)
         {
             $this->sth = $this->dbh->prepare($sql);
              $this->watchException($this->sth->execute($parameters));
             return $this->sth->fetch($type);
         }
+        
         function fetchColumn($sql, $parameters=[], $position=0)
         {
             $this->sth = $this->dbh->prepare($sql);
             $this->watchException($this->sth->execute($parameters));
             return $this->sth->fetch(\PDO::FETCH_COLUMN, $position);
         }
+        
         function insert($table, $parameters=[])
         {
             $sql = "INSERT INTO `$table`";

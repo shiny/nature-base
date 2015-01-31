@@ -12,6 +12,7 @@
                 }
             }
         }
+        
         function get() 
         {
             if($this->tpl->exists()){
@@ -20,10 +21,12 @@
                 throw new HTTPException("Page Not Found", 404);
             }
         }
+        
         function assign() 
         {
             call_user_func_array(array($this->tpl, 'assign'), func_get_args());
         }
+        
         function display($var=null)
         {
             $this->tpl->display($var);
